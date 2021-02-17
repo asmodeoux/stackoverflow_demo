@@ -70,6 +70,8 @@ class AppState extends Equatable {
 class Constants {
   static const int TAGS_PER_PAGE = 20; // 20 is the API limit
   static const int QUESTIONS_PER_PAGE = 20;
-  static const int DEBOUNCER_TIMER = 500;
+  static const int DEBOUNCER_TIMER = 500; // the minimal limit between API calls
+  static const int QUESTION_BODY_WORD_LIMIT = 40; // max word count in a question description
+
   static const double SCROLL_THRESHOLD_PIXELS = 100.0;
 }

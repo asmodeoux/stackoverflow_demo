@@ -3,7 +3,8 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:stackoverflow/api/retrofit.dart';
 import 'package:stackoverflow/model/model.dart';
 import 'package:redux/redux.dart';
-import 'package:stackoverflow/presenter/presenter_tag.dart';
+import 'package:stackoverflow/view/presenter_question.dart';
+import 'package:stackoverflow/view/presenter_tag.dart';
 import 'package:stackoverflow/redux/actions.dart';
 
 class _ViewModel {
@@ -38,7 +39,7 @@ class _ViewModel {
     if (!areQuestionsLoading) {
       store.dispatch(LoadQuestionsAction(
         (questionsLoaded.length ~/ Constants.QUESTIONS_PER_PAGE) + 1,
-        Constants.QUESTIONS_PER_PAGE,
+        Constants.QUESTIONS_PER_PAGE
       ));
     }
   }
@@ -73,13 +74,43 @@ class TagsContainer extends StatelessWidget {
             items: vm.tagsLoaded,
             refresh: vm.onRefreshTags,
             loadNextPage: vm.onLoadNextTagsPage,
-            noError: vm.error == null
+            noError: vm.error == null,
+            store: vm.store
         );
       },
       converter: _ViewModel.fromStore,
       onInit: (store) {
         store.dispatch(LoadTagsAction(1, Constants.TAGS_PER_PAGE));
       }
+    );
+  }
+}
+
+class QuestionsContainer extends StatelessWidget {
+  final String tagName; // to force specific tag name if couldn't get from the store
+  QuestionsContainer({this.tagName});
+
+  @override
+  Widget build(BuildContext context) {
+    return StoreConnector<AppState, _ViewModel>(
+        builder: (context, vm) {
+          return QuestionsScreen(
+              tagName: vm.tagSelected ?? tagName,
+              isDataLoading: vm.areQuestionsLoading,
+              items: vm.questionsLoaded,
+              refresh: vm.onRefreshQuestions,
+              loadNextPage: vm.onLoadNextQuestionsPage,
+              noError: vm.error == null,
+              store: vm.store
+          );
+        },
+        converter: _ViewModel.fromStore,
+        onInit: (store) {
+          store.dispatch(LoadQuestionsAction(1, Constants.TAGS_PER_PAGE));
+        },
+        onDispose: (store) {
+          store.dispatch(NavigateAction(null));
+        }
     );
   }
 }

@@ -22,10 +22,10 @@ Map<String, dynamic> _$TagToJson(Tag instance) => <String, dynamic>{
 
 Question _$QuestionFromJson(Map<String, dynamic> json) {
   return Question(
-    json['id'] as int,
+    json['question_id'] as int,
     json['title'] as String,
-    json['ownerName'] as String,
-    json['creationDate'] as int,
+    json['owner']['display_name'] as String,
+    json['creation_date'] as int,
     json['body'] as String,
   );
 }
@@ -61,7 +61,6 @@ class _RestClient implements RestClient {
       r'pagesize': pagesize,
       r'page': page
     };
-    print('${baseUrl}tags?order=desc&sort=popular&site=stackoverflow&filter=!4)VmdJvLRUS1RP*-5&page=$page&pagesize=$pagesize');
     final _data = <String, dynamic>{};
     final _result = await _dio.request<String>(
         '/tags?order=desc&sort=popular&site=stackoverflow&filter=!4)VmdJvLRUS1RP*-5',
@@ -100,13 +99,13 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<List<Question>> getQuestions(tagged) async {
+  Future<List<Question>> getQuestions(tagged, page) async {
     ArgumentError.checkNotNull(tagged, 'tagged');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'tagged': tagged};
+    final queryParameters = <String, dynamic>{r'tagged': tagged, r'page': page};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<List<dynamic>>(
-        '/search/advanced?order=desc&sort=activity&site=stackoverflow&filter=!)Q2ANGPYCfBr(YC9YNizawue',
+    final _result = await _dio.request<String>(
+        '/search/advanced?order=desc&sort=creation&site=stackoverflow&filter=!Fcb3plNOK_c(XFHn(fm1upY_nq',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -114,7 +113,7 @@ class _RestClient implements RestClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    var value = _result.data
+    var value = List.from(jsonDecode(_result.toString())['items'])
         .map((dynamic i) => Question.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;

@@ -38,29 +38,23 @@ class TagsLoadedAction extends Equatable {
 
 class QuestionsLoadedAction extends Equatable {
   final List<Question> list;
+  final int pageLoaded;
 
-  QuestionsLoadedAction(this.list);
+  QuestionsLoadedAction(this.list, this.pageLoaded);
 
   @override
-  List<Object> get props => [list];
+  List<Object> get props => [list, pageLoaded];
 }
 
 
-// navigation handling, can be easily edited to pass a Navigator path (e.g. /tags/android) instead of a manual switch if needed
-class OpenQuestionsAction extends Equatable {
-  final String tag;
+// navigation handling
+class NavigateAction extends Equatable {
+  NavigateAction(this.tag);
 
-  OpenQuestionsAction(this.tag);
+  final String tag; // pass tag name if opening questions, and null if poping it
 
   @override
   List<Object> get props => [tag];
-}
-
-class OpenTagsAction extends Equatable {
-  OpenTagsAction();
-
-  @override
-  List<Object> get props => [];
 }
 
 

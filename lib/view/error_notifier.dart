@@ -4,7 +4,6 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:stackoverflow/model/model.dart';
 import 'package:redux/redux.dart';
 import 'package:stackoverflow/redux/actions.dart';
-import 'package:stackoverflow/redux/reducers.dart';
 
 class ErrorNotifier extends StatelessWidget {
   ErrorNotifier({
@@ -21,7 +20,7 @@ class ErrorNotifier extends StatelessWidget {
       onDidChange: (vm) {
         if (vm.error != null) {
           vm.markErrorAsHandled();
-          Scaffold.of(context).showSnackBar(SnackBar(content: Text(vm.error.toString())));
+          Scaffold.of(context).showSnackBar(SnackBar(content: Text(vm.error.toString() ?? 'Unknown exception')));
           // shows a Snackbar with error info
           // this Snackbar might include action button or action to hide
         }
