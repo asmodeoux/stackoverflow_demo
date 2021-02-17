@@ -23,3 +23,7 @@ Actual time spent: ≈6 hours
 • Separate middleware for logging, reducer to handle errors (actually shows them in a SnackBar)
 
 • Middleware placeholder to add SharedPreferences caching if it's ever needed
+
+
+
+### P.S. I've just found out I forgot to include customization of QUESTIONS_PER_REQUEST in Retrofit, it wouldn't take much time though, just keep in mind
