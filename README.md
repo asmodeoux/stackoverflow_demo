@@ -1,16 +1,23 @@
 # stackoverflow
 
-A test app for Moqod
+A demo StackOverflow app for Moqod (Flutter)
 
-## Getting Started
+## Details
 
-This project is a starting point for a Flutter application.
+Requirements @ [Google Docs](https://docs.google.com/document/d/1wBGqcCON9lNVwZnpLQudV2g_fpKmax8ksbi3tW7HhEg/edit?usp=sharing)
 
-A few resources to get you started if this is your first Flutter project:
+Profile APK & Screenshots @ [Google Drive](https://drive.google.com/drive/folders/1lmsqrMDcmS7x37mxl4xZr7xlHdwACR9Q?usp=sharing)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Description:
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+• Redux architecture (Store -> ViewModel -> View -> Intent -> Store)
+
+• Retrofit for API calls handling
+
+• Vector graphics
+
+• Material Design: AppBar, ListTile, SnackBar
+
+• Separate middleware for logging, reducer to handle errors (actually shows them in a SnackBar)
+
+• Middleware placeholder to add SharedPreferences caching if it's ever needed
